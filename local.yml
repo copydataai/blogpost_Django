@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    depends_on: mongo
+    volumes:
+      - .:/app
+    env_file:
+      - ./.envs/local/.mongo
+    ports:
+      - '8000:8000'
+  
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - ./mongo_db:/data/db
