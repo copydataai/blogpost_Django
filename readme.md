@@ -1,8 +1,8 @@
-# Social app
-## Build with django y mongoDB(usging djongo)
+# Blogpost
+## Build with django y mongoDB(using djongo)
 
 ### For use or development
-```bash
+```Bash
 docker-compose -f local.yml build
 docker-compose -f local.yml up
 ```

@@ -10,10 +10,6 @@ APPS_DIR = BASE_DIR.path('social')
 
 env = environ.Env()
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2#=7l=k6r7-hz1*2ijri41pu@@o9(v7b6q#!g8n3%qb4xq*n&0'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DJANGO_DEBUG', False)
 
 ROOT_URLCONF = 'config.urls'
@@ -21,8 +17,6 @@ ROOT_URLCONF = 'config.urls'
 WSGI_APPLICATION = 'config.wsgi.application'
 
 AUTH_USER_MODEL = 'users.User'
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -69,13 +63,17 @@ PASSWORD_HASHERS = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [str(APPS_DIR.path('templates'))],
         'OPTIONS': {
+            'debug': DEBUG,
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz'
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -89,6 +87,7 @@ TEMPLATES = [
 DATABASES = {
     'default': env.db('DATABASE_URL'),
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 
@@ -122,13 +121,19 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_ROOT = str(BASE_DIR('staticfiles'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     str(APPS_DIR.path('static'))
 ]
+
+# Media
+MEDIA_ROOT = str(APPS_DIR('media'))
+MEDIA_URL = '/media/'
+
+# Admin
+ADMIN_URL = 'admin/'
+
 
 # Security
 SESSION_COOKIE_HTTPONLY = True
