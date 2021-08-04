@@ -6,7 +6,7 @@ import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = environ.Path(__file__) - 3
-APPS_DIR = BASE_DIR.path('social')
+APPS_DIR = BASE_DIR.path('blog')
 
 env = environ.Env()
 
