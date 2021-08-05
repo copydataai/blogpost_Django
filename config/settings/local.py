@@ -1,6 +1,6 @@
 """Development settings."""
-from base import *
-from base import env
+from .base import *
+from .base import env
 
 DEBUG = True
 

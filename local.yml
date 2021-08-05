@@ -5,13 +5,15 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    depends_on: mongo
+    depends_on:
+      - mongo
     volumes:
       - .:/app
     env_file:
-      - ./.envs/local/.mongo
+      - ./.envs/.local/.mongo
     ports:
       - '8000:8000'
+    command: /start
   
   mongo:
     image: mongo

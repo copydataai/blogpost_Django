@@ -3,8 +3,6 @@ Django settings for config project.
 """
 import environ
 
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = environ.Path(__file__) - 3
 APPS_DIR = BASE_DIR.path('blog')
 
@@ -19,7 +17,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 AUTH_USER_MODEL = 'users.User'
 
 
-# Application definition
 DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,13 +27,15 @@ DJANGO_APPS = [
 ]
 
 THIRD_APPS = [
+    'djongo',
     'rest_framework',
     'rest_framework.authtoken',
     'django_filters'
 ]
 
 LOCAL_APPS = [
-
+    'blog.users.apps.UsersAppConfig',
+    'blog.posts.apps.PostsAppConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + LOCAL_APPS
@@ -85,9 +84,17 @@ TEMPLATES = [
 # Database
 
 DATABASES = {
-    'default': env.db('DATABASE_URL'),
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'blogpost',
+        'CLIENT': {
+            'host': 'mongo',
+            'port': '27017',
+            'username': 'root',
+            'password': 'root_2021'
+        }
+    }
 }
-DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 
